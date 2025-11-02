@@ -184,7 +184,7 @@ const LegacyStory: React.FC = () => (
 						intimate cooking sessions to large-scale hotel transformations.
 					</p>
 					<a
-						href="#"
+						href="/"
 						className="font-semibold text-secondary hover:underline inline-flex items-center"
 					>
 						Read Full Story <ArrowRightIcon className="ml-2 h-5 w-5" />
@@ -216,12 +216,8 @@ const ServicesShowcase: React.FC = () => (
 				</p>
 			</AnimatedSection>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-				{SERVICES.slice(0, 8).map((service, index) => (
-					<AnimatedSection
-						key={index}
-						className="flex"
-						style={{ animationDelay: `${index * 100}ms` }}
-					>
+				{SERVICES.slice(0, 8).map((service) => (
+					<AnimatedSection key={service.title} className="flex">
 						<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col">
 							<div className="text-accent mb-4">
 								{service.icon({ className: "h-12 w-12" })}
@@ -231,7 +227,7 @@ const ServicesShowcase: React.FC = () => (
 							</h3>
 							<p className="text-foreground flex-grow">{service.description}</p>
 							<a
-								href="#"
+								href="/"
 								className="font-semibold text-secondary mt-6 inline-flex items-center group"
 							>
 								Learn More{" "}
@@ -262,8 +258,11 @@ const ResultsMetrics: React.FC = () => {
 					</p>
 				</AnimatedSection>
 				<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-					{METRICS.map((metric, index) => (
-						<AnimatedSection key={index} className="flex flex-col items-center">
+					{METRICS.map((metric) => (
+						<AnimatedSection
+							key={metric.label}
+							className="flex flex-col items-center"
+						>
 							<div className="mb-2">
 								{metric.icon({ className: "h-10 w-10 text-white opacity-80" })}
 							</div>
@@ -311,7 +310,7 @@ const SuccessStories: React.FC = () => {
 				<div className="relative h-[600px] md:h-[500px]">
 					{SUCCESS_STORIES.map((story, index) => (
 						<div
-							key={index}
+							key={story.client}
 							className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
 						>
 							<div className="grid lg:grid-cols-2 gap-12 items-center h-full">
@@ -347,12 +346,13 @@ const SuccessStories: React.FC = () => {
 					))}
 				</div>
 				<div className="flex justify-center space-x-3 mt-8">
-					{SUCCESS_STORIES.map((_, index) => (
+					{SUCCESS_STORIES.map((story, index) => (
 						<button
-							key={index}
+							key={story.client}
+							type="button"
 							onClick={() => setCurrentIndex(index)}
 							className={`h-3 w-3 rounded-full transition-colors ${index === currentIndex ? "bg-secondary" : "bg-primary opacity-30"}`}
-						></button>
+						/>
 					))}
 				</div>
 			</div>
@@ -370,12 +370,8 @@ const ExpertiseHighlights: React.FC = () => (
 				</h2>
 			</AnimatedSection>
 			<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-				{DIFFERENTIATORS.map((item, index) => (
-					<AnimatedSection
-						key={index}
-						className="text-center p-6 group"
-						style={{ animationDelay: `${index * 100}ms` }}
-					>
+				{DIFFERENTIATORS.map((item) => (
+					<AnimatedSection key={item.title} className="text-center p-6 group">
 						<div className="inline-block p-4 bg-secondary text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
 							{item.icon({ className: "h-10 w-10" })}
 						</div>
@@ -404,12 +400,8 @@ const TrainingPrograms: React.FC = () => (
 				</p>
 			</AnimatedSection>
 			<div className="grid lg:grid-cols-3 gap-8">
-				{TRAINING_PROGRAMS.map((program, index) => (
-					<AnimatedSection
-						key={index}
-						className="flex"
-						style={{ animationDelay: `${index * 100}ms` }}
-					>
+				{TRAINING_PROGRAMS.map((program) => (
+					<AnimatedSection key={program.title} className="flex">
 						<div className="border-2 border-primary rounded-2xl p-8 flex flex-col w-full hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
 							<span className="absolute top-4 -right-10 bg-accent text-white text-sm font-semibold px-12 py-1 transform rotate-45">
 								HOT
@@ -445,7 +437,7 @@ const TrainingPrograms: React.FC = () => (
 			</div>
 			<div className="text-center mt-12">
 				<a
-					href="#"
+					href="/"
 					className="font-semibold text-secondary hover:underline inline-flex items-center text-lg"
 				>
 					View Full Schedule <ArrowRightIcon className="ml-2 h-5 w-5" />
@@ -459,9 +451,9 @@ const TrainingPrograms: React.FC = () => (
 const Testimonials: React.FC = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
-	const goToSlide = (index: number) => {
-		setCurrentIndex(index);
-	};
+	// const goToSlide = (index: number) => {
+	// 	setCurrentIndex(index);
+	// };
 
 	const nextSlide = useCallback(() => {
 		setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
@@ -490,7 +482,7 @@ const Testimonials: React.FC = () => {
 					<div className="overflow-hidden relative h-[420px] md:h-80">
 						{TESTIMONIALS.map((testimonial, index) => (
 							<div
-								key={index}
+								key={testimonial.name}
 								className={`absolute w-full h-full transition-opacity duration-500 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
 							>
 								<div className="bg-white p-10 md:p-14 rounded-3xl shadow-lg h-full flex flex-col justify-center relative">
@@ -510,8 +502,8 @@ const Testimonials: React.FC = () => {
 												{testimonial.title}
 											</p>
 											<div className="flex mt-1">
-												{[...Array(5)].map((_, i) => (
-													<StarIcon key={i} className="h-5 w-5 text-accent" />
+												{[1, 2, 3, 4, 5].map((num) => (
+													<StarIcon key={num} className="h-5 w-5 text-accent" />
 												))}
 											</div>
 										</div>
@@ -522,12 +514,14 @@ const Testimonials: React.FC = () => {
 					</div>
 					<button
 						onClick={prevSlide}
+						type="button"
 						className="absolute top-1/2 -left-5 md:left-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white transition-colors text-primary"
 					>
 						<ChevronLeftIcon className="h-6 w-6" />
 					</button>
 					<button
 						onClick={nextSlide}
+						type="button"
 						className="absolute top-1/2 right-5 md:right-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white transition-colors text-primary"
 					>
 						<ChevronRightIcon className="h-6 w-6" />
@@ -554,7 +548,7 @@ const Contact: React.FC = () => {
 							<div className="space-y-8">
 								{CONTACT_INFO.map((info) => (
 									<div key={info.label} className="flex items-start">
-										<div className="flex-shrink-0 bg-secondary/10 p-3 rounded-lg mr-4">
+										<div className="shrink-0 bg-secondary/10 p-3 rounded-lg mr-4">
 											{info.icon({ className: "h-6 w-6 text-secondary" })}
 										</div>
 										<div>
@@ -564,7 +558,7 @@ const Contact: React.FC = () => {
 											<div
 												className="text-foreground"
 												dangerouslySetInnerHTML={{ __html: info.info }}
-											></div>
+											/>
 											<p className="text-sm text-foreground/70 mt-1">
 												{info.note}
 											</p>
@@ -633,7 +627,7 @@ const Contact: React.FC = () => {
 										id="message"
 										rows={4}
 										className="w-full px-4 py-3 rounded-lg border-border focus:ring-secondary focus:border-secondary"
-									></textarea>
+									/>
 								</div>
 								<div>
 									<Button size="lg" type="submit" className="w-full">
