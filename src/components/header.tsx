@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlameLogo, MenuIcon, XIcon } from "./icons";
+import { MenuIcon, XIcon } from "./icons";
 import { Button } from "./ui/button";
 
 import { NAV_LINKS } from "@/data";
@@ -29,20 +29,17 @@ export default function Header() {
 		>
 			<div className="container mx-auto px-6 py-3 flex justify-between items-center max-w-7xl">
 				<a href="#home" className="flex items-center space-x-2">
-					<FlameLogo className="h-12 w-12 text-deep-forest-green" />
-					<span className="font-display font-bold text-lg text-deep-forest-green hidden sm:block">
-						Chef Fred De Mongolian
-					</span>
+					<img width={240} src="/logo.svg" className="height-auto" />
 				</a>
 				<nav className="hidden lg:flex space-x-8">
 					{NAV_LINKS.map((link) => (
 						<a
 							key={link.href}
 							href={link.href}
-							className="text-slate-gray font-medium hover:text-warm-terracotta relative group"
+							className={`font-medium hover:text-secondary relative group ${scrolled ? "text-foreground" : "text-background"}`}
 						>
 							{link.label}
-							<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-warm-terracotta transition-all duration-300 group-hover:w-full"></span>
+							<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full"></span>
 						</a>
 					))}
 				</nav>
@@ -54,7 +51,7 @@ export default function Header() {
 				<div className="lg:hidden">
 					<button
 						onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-						className="text-deep-forest-green"
+						className="text-primary"
 					>
 						<MenuIcon className="h-8 w-8" />
 					</button>
@@ -67,7 +64,7 @@ export default function Header() {
 				<div className="p-6">
 					<button
 						onClick={() => setMobileMenuOpen(false)}
-						className="absolute top-4 right-4 text-slate-gray"
+						className="absolute top-4 right-4 text-foreground"
 					>
 						<XIcon className="h-8 w-8" />
 					</button>
@@ -77,7 +74,7 @@ export default function Header() {
 								key={link.href}
 								href={link.href}
 								onClick={() => setMobileMenuOpen(false)}
-								className="text-slate-gray font-semibold text-lg hover:text-warm-terracotta"
+								className="text-foreground font-semibold text-lg hover:text-secondary"
 							>
 								{link.label}
 							</a>

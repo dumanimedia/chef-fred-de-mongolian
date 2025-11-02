@@ -118,10 +118,10 @@ const Hero = () => {
 			className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
 			style={{
 				backgroundImage:
-					"url('https://fastly.picsum.photos/id/483/1920/1080.jpg?blur=2&grayscale&hmac=Bnp9-43Kp6FzztadYdCEFf2Jo492SnC-jlHGmrcNneY')",
+					"url('https://images.unsplash.com/photo-1488992783499-418eb1f62d08?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1080&q=65')",
 			}}
 		>
-			<div className="absolute inset-0 bg-black bg-opacity-60"></div>
+			<div className="absolute inset-0 bg-black/80" />
 			<div className="relative z-10 text-center text-white px-6">
 				<AnimatedSection>
 					<h1 className="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight">
@@ -132,11 +132,12 @@ const Hero = () => {
 						operations, professional training, and authentic international
 						cuisine expertise.
 					</p>
+
 					<div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
 						<Button variant="secondary" className="w-full sm:w-auto">
 							Book Free Consultation
 						</Button>
-						<Button className="text-white border-white hover:bg-white hover:text-deep-forest-green w-full sm:w-auto">
+						<Button className="text-white border-white hover:bg-white hover:text-primary w-full sm:w-auto">
 							Explore Services
 						</Button>
 					</div>
@@ -147,7 +148,7 @@ const Hero = () => {
 					<div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-white">
 						{TRUST_INDICATORS.map((item) => (
 							<div key={item.label} className="flex flex-col items-center">
-								<span className="font-bold text-xl lg:text-2xl text-gold-accent">
+								<span className="font-bold text-xl lg:text-2xl text-accent">
 									{item.value}
 								</span>
 								<span className="text-sm lg:text-base opacity-90">
@@ -169,12 +170,12 @@ const LegacyStory: React.FC = () => (
 			<div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 				<AnimatedSection>
 					<div className="flex items-center space-x-3 mb-4">
-						<FlameIcon className="h-8 w-8 text-gold-accent" />
-						<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+						<FlameIcon className="h-8 w-8 text-accent" />
+						<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 							The Mongolian Legacy
 						</h2>
 					</div>
-					<p className="font-body text-lg leading-relaxed text-slate-gray mb-6">
+					<p className="font-body text-lg leading-relaxed text-foreground mb-6">
 						Chef Fred earned his distinctive 'Mongolian' title through a
 						remarkable culinary achievement—creating an authentic Mongolian
 						cuisine that captivated Uganda's dining scene and left diners
@@ -184,7 +185,7 @@ const LegacyStory: React.FC = () => (
 					</p>
 					<a
 						href="#"
-						className="font-semibold text-warm-terracotta hover:underline inline-flex items-center"
+						className="font-semibold text-secondary hover:underline inline-flex items-center"
 					>
 						Read Full Story <ArrowRightIcon className="ml-2 h-5 w-5" />
 					</a>
@@ -203,13 +204,13 @@ const LegacyStory: React.FC = () => (
 
 // 4. Services Showcase
 const ServicesShowcase: React.FC = () => (
-	<section id="services" className="py-20 lg:py-28 bg-neutral-cream">
+	<section id="services" className="py-20 lg:py-28 bg-background">
 		<div className="container mx-auto px-6 max-w-[1400px]">
 			<AnimatedSection className="text-center mb-16">
-				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 					Comprehensive Culinary Solutions
 				</h2>
-				<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+				<p className="font-body text-lg text-foreground max-w-3xl mx-auto mt-4">
 					From consultation to implementation, we transform every aspect of your
 					culinary operations.
 				</p>
@@ -221,17 +222,17 @@ const ServicesShowcase: React.FC = () => (
 						className="flex"
 						style={{ animationDelay: `${index * 100}ms` }}
 					>
-						<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-warm-terracotta hover:shadow-xl transition-all duration-300 flex flex-col">
-							<div className="text-gold-accent mb-4">
+						<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col">
+							<div className="text-accent mb-4">
 								{service.icon({ className: "h-12 w-12" })}
 							</div>
-							<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-3">
+							<h3 className="font-display font-semibold text-2xl text-primary mb-3">
 								{service.title}
 							</h3>
-							<p className="text-slate-gray flex-grow">{service.description}</p>
+							<p className="text-foreground flex-grow">{service.description}</p>
 							<a
 								href="#"
-								className="font-semibold text-warm-terracotta mt-6 inline-flex items-center group"
+								className="font-semibold text-secondary mt-6 inline-flex items-center group"
 							>
 								Learn More{" "}
 								<ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -249,10 +250,7 @@ const ResultsMetrics: React.FC = () => {
 	const [ref, isInView] = useInView({ threshold: 0.5 });
 
 	return (
-		<section
-			ref={ref}
-			className="py-20 lg:py-24 bg-deep-forest-green text-white"
-		>
+		<section ref={ref} className="py-20 lg:py-24 bg-primary text-white">
 			<div className="container mx-auto px-6 max-w-7xl text-center">
 				<AnimatedSection>
 					<h2 className="font-display font-semibold text-3xl md:text-4xl">
@@ -272,7 +270,7 @@ const ResultsMetrics: React.FC = () => {
 							<AnimatedCounter
 								target={metric.value}
 								isInView={isInView}
-								className="font-display font-bold text-4xl md:text-5xl text-gold-accent"
+								className="font-display font-bold text-4xl md:text-5xl text-accent"
 							/>
 							<span className="font-body font-medium text-lg mt-2 opacity-90">
 								{metric.label}
@@ -302,10 +300,10 @@ const SuccessStories: React.FC = () => {
 		<section id="portfolio" className="py-20 lg:py-28 bg-white">
 			<div className="container mx-auto px-6 max-w-7xl">
 				<AnimatedSection className="text-center mb-16">
-					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 						Client Success Stories
 					</h2>
-					<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+					<p className="font-body text-lg text-foreground max-w-3xl mx-auto mt-4">
 						Real transformations from Uganda's leading hospitality
 						establishments.
 					</p>
@@ -323,28 +321,24 @@ const SuccessStories: React.FC = () => {
 									className="w-full h-64 lg:h-full object-cover rounded-2xl shadow-lg"
 								/>
 								<div className="p-4">
-									<span className="font-semibold text-warm-terracotta">
+									<span className="font-semibold text-secondary">
 										{story.client}
 									</span>
-									<h3 className="font-display font-semibold text-2xl text-deep-forest-green mt-2 mb-4">
+									<h3 className="font-display font-semibold text-2xl text-primary mt-2 mb-4">
 										{story.challenge}
 									</h3>
-									<p className="text-slate-gray mb-4">
-										<strong className="text-deep-forest-green">
-											Solution:
-										</strong>{" "}
+									<p className="text-foreground mb-4">
+										<strong className="text-primary">Solution:</strong>{" "}
 										{story.solution}
 									</p>
-									<div className="bg-neutral-cream p-4 rounded-lg mb-4">
-										<p className="text-slate-gray">
-											<strong className="text-deep-forest-green">
-												Results:
-											</strong>{" "}
+									<div className="bg-background p-4 rounded-lg mb-4">
+										<p className="text-foreground">
+											<strong className="text-primary">Results:</strong>{" "}
 											{story.results}
 										</p>
 									</div>
-									<p className="text-slate-gray italic relative pl-8">
-										<QuoteIcon className="absolute left-0 top-0 h-6 w-6 text-gold-accent opacity-50" />
+									<p className="text-foreground italic relative pl-8">
+										<QuoteIcon className="absolute left-0 top-0 h-6 w-6 text-accent opacity-50" />
 										{story.testimonial}
 									</p>
 								</div>
@@ -357,7 +351,7 @@ const SuccessStories: React.FC = () => {
 						<button
 							key={index}
 							onClick={() => setCurrentIndex(index)}
-							className={`h-3 w-3 rounded-full transition-colors ${index === currentIndex ? "bg-warm-terracotta" : "bg-deep-forest-green opacity-30"}`}
+							className={`h-3 w-3 rounded-full transition-colors ${index === currentIndex ? "bg-secondary" : "bg-primary opacity-30"}`}
 						></button>
 					))}
 				</div>
@@ -368,10 +362,10 @@ const SuccessStories: React.FC = () => {
 
 // 7. Expertise Highlights
 const ExpertiseHighlights: React.FC = () => (
-	<section className="py-20 lg:py-28 bg-neutral-cream">
+	<section className="py-20 lg:py-28 bg-background">
 		<div className="container mx-auto px-6 max-w-7xl">
 			<AnimatedSection className="text-center mb-16">
-				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 					Why Choose Chef Fred De Mongolian Ltd?
 				</h2>
 			</AnimatedSection>
@@ -382,13 +376,13 @@ const ExpertiseHighlights: React.FC = () => (
 						className="text-center p-6 group"
 						style={{ animationDelay: `${index * 100}ms` }}
 					>
-						<div className="inline-block p-4 bg-warm-terracotta text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
+						<div className="inline-block p-4 bg-secondary text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
 							{item.icon({ className: "h-10 w-10" })}
 						</div>
-						<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-3">
+						<h3 className="font-display font-semibold text-2xl text-primary mb-3">
 							{item.title}
 						</h3>
-						<p className="text-slate-gray">{item.text}</p>
+						<p className="text-foreground">{item.text}</p>
 					</AnimatedSection>
 				))}
 			</div>
@@ -401,10 +395,10 @@ const TrainingPrograms: React.FC = () => (
 	<section id="training" className="py-20 lg:py-28 bg-white">
 		<div className="container mx-auto px-6 max-w-7xl">
 			<AnimatedSection className="text-center mb-16">
-				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 					Upcoming Training Programs
 				</h2>
-				<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+				<p className="font-body text-lg text-foreground max-w-3xl mx-auto mt-4">
 					Elevate your culinary skills with hands-on workshops and certification
 					programs.
 				</p>
@@ -416,32 +410,32 @@ const TrainingPrograms: React.FC = () => (
 						className="flex"
 						style={{ animationDelay: `${index * 100}ms` }}
 					>
-						<div className="border-2 border-deep-forest-green rounded-2xl p-8 flex flex-col w-full hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
-							<span className="absolute top-4 -right-10 bg-gold-accent text-white text-sm font-semibold px-12 py-1 transform rotate-45">
+						<div className="border-2 border-primary rounded-2xl p-8 flex flex-col w-full hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+							<span className="absolute top-4 -right-10 bg-accent text-white text-sm font-semibold px-12 py-1 transform rotate-45">
 								HOT
 							</span>
-							<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-4">
+							<h3 className="font-display font-semibold text-2xl text-primary mb-4">
 								{program.title}
 							</h3>
-							<div className="space-y-3 text-slate-gray mb-6 grow">
+							<div className="space-y-3 text-foreground mb-6 grow">
 								<p className="flex items-center">
-									<CalendarIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									<CalendarIcon className="h-5 w-5 mr-3 text-secondary" />{" "}
 									{program.date}
 								</p>
 
 								<p className="flex items-center">
-									<ClockIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									<ClockIcon className="h-5 w-5 mr-3 text-secondary" />{" "}
 									{program.duration}
 								</p>
 								<p className="flex items-center">
-									<BarChartIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									<BarChartIcon className="h-5 w-5 mr-3 text-secondary" />{" "}
 									{program.level}
 								</p>
 							</div>
-							<p className="font-semibold text-warm-terracotta mb-4">
+							<p className="font-semibold text-secondary mb-4">
 								{program.spots}
 							</p>
-							<p className="font-display font-bold text-3xl text-deep-forest-green mb-6">
+							<p className="font-display font-bold text-3xl text-primary mb-6">
 								{program.price}
 							</p>
 							<Button className="w-full mt-auto">Register Now</Button>
@@ -452,7 +446,7 @@ const TrainingPrograms: React.FC = () => (
 			<div className="text-center mt-12">
 				<a
 					href="#"
-					className="font-semibold text-warm-terracotta hover:underline inline-flex items-center text-lg"
+					className="font-semibold text-secondary hover:underline inline-flex items-center text-lg"
 				>
 					View Full Schedule <ArrowRightIcon className="ml-2 h-5 w-5" />
 				</a>
@@ -485,10 +479,10 @@ const Testimonials: React.FC = () => {
 	}, [nextSlide]);
 
 	return (
-		<section className="py-20 lg:py-28 bg-neutral-cream">
+		<section className="py-20 lg:py-28 bg-background">
 			<div className="container mx-auto px-6 max-w-4xl text-center">
 				<AnimatedSection className="mb-12">
-					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 						What Our Clients Say
 					</h2>
 				</AnimatedSection>
@@ -500,8 +494,8 @@ const Testimonials: React.FC = () => {
 								className={`absolute w-full h-full transition-opacity duration-500 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
 							>
 								<div className="bg-white p-10 md:p-14 rounded-3xl shadow-lg h-full flex flex-col justify-center relative">
-									<QuoteIcon className="absolute top-8 left-8 h-12 w-12 text-gold-accent opacity-20" />
-									<p className="font-display italic text-xl md:text-2xl text-deep-forest-green mb-6">{`"${testimonial.quote}"`}</p>
+									<QuoteIcon className="absolute top-8 left-8 h-12 w-12 text-accent opacity-20" />
+									<p className="font-display italic text-xl md:text-2xl text-secondary mb-6">{`"${testimonial.quote}"`}</p>
 									<div className="flex items-center justify-center">
 										<img
 											src={testimonial.photo}
@@ -509,18 +503,15 @@ const Testimonials: React.FC = () => {
 											className="h-16 w-16 rounded-full object-cover mr-4"
 										/>
 										<div>
-											<p className="font-body font-bold text-deep-forest-green text-left">
+											<p className="font-body font-bold text-primary text-left">
 												{testimonial.name}
 											</p>
-											<p className="font-body text-slate-gray text-left">
+											<p className="font-body text-foreground text-left">
 												{testimonial.title}
 											</p>
 											<div className="flex mt-1">
 												{[...Array(5)].map((_, i) => (
-													<StarIcon
-														key={i}
-														className="h-5 w-5 text-gold-accent"
-													/>
+													<StarIcon key={i} className="h-5 w-5 text-accent" />
 												))}
 											</div>
 										</div>
@@ -531,13 +522,13 @@ const Testimonials: React.FC = () => {
 					</div>
 					<button
 						onClick={prevSlide}
-						className="absolute top-1/2 -left-5 md:left-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-warm-terracotta hover:text-white transition-colors text-deep-forest-green"
+						className="absolute top-1/2 -left-5 md:left-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white transition-colors text-primary"
 					>
 						<ChevronLeftIcon className="h-6 w-6" />
 					</button>
 					<button
 						onClick={nextSlide}
-						className="absolute top-1/2 right-5 md:right-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-warm-terracotta hover:text-white transition-colors text-deep-forest-green"
+						className="absolute top-1/2 right-5 md:right-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white transition-colors text-primary"
 					>
 						<ChevronRightIcon className="h-6 w-6" />
 					</button>
@@ -553,7 +544,7 @@ const Contact: React.FC = () => {
 		<section id="contact" className="py-20 lg:py-28 bg-white">
 			<div className="container mx-auto px-6 max-w-7xl">
 				<AnimatedSection className="text-center mb-16">
-					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-primary">
 						Get In Touch
 					</h2>
 				</AnimatedSection>
@@ -563,18 +554,18 @@ const Contact: React.FC = () => {
 							<div className="space-y-8">
 								{CONTACT_INFO.map((info) => (
 									<div key={info.label} className="flex items-start">
-										<div className="flex-shrink-0 bg-warm-terracotta/10 p-3 rounded-lg mr-4">
-											{info.icon({ className: "h-6 w-6 text-warm-terracotta" })}
+										<div className="flex-shrink-0 bg-secondary/10 p-3 rounded-lg mr-4">
+											{info.icon({ className: "h-6 w-6 text-secondary" })}
 										</div>
 										<div>
-											<h3 className="font-body font-bold text-deep-forest-green text-lg">
+											<h3 className="font-body font-bold text-primary text-lg">
 												{info.label}
 											</h3>
 											<div
-												className="text-slate-gray"
+												className="text-foreground"
 												dangerouslySetInnerHTML={{ __html: info.info }}
 											></div>
-											<p className="text-sm text-slate-gray/70 mt-1">
+											<p className="text-sm text-foreground/70 mt-1">
 												{info.note}
 											</p>
 										</div>
@@ -583,47 +574,47 @@ const Contact: React.FC = () => {
 							</div>
 						</AnimatedSection>
 					</div>
-					<div className="lg:col-span-3 bg-neutral-cream p-8 rounded-2xl">
+					<div className="lg:col-span-3 bg-background p-8 rounded-2xl">
 						<AnimatedSection>
 							<form className="space-y-6">
 								<div className="grid sm:grid-cols-2 gap-6">
 									<div>
 										<label
 											htmlFor="name"
-											className="block text-sm font-medium text-slate-gray mb-2"
+											className="block text-sm font-medium text-foreground mb-2"
 										>
 											Name
 										</label>
 										<input
 											type="text"
 											id="name"
-											className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+											className="w-full px-4 py-3 rounded-lg border-border focus:ring-secondary focus:border-secondary"
 										/>
 									</div>
 									<div>
 										<label
 											htmlFor="email"
-											className="block text-sm font-medium text-slate-gray mb-2"
+											className="block text-sm font-medium text-foreground mb-2"
 										>
 											Email
 										</label>
 										<input
 											type="email"
 											id="email"
-											className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+											className="w-full px-4 py-3 rounded-lg border-border focus:ring-secondary focus:border-secondary"
 										/>
 									</div>
 								</div>
 								<div>
 									<label
 										htmlFor="service"
-										className="block text-sm font-medium text-slate-gray mb-2"
+										className="block text-sm font-medium text-foreground mb-2"
 									>
 										Service of Interest
 									</label>
 									<select
 										id="service"
-										className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+										className="w-full px-4 py-3 rounded-lg border-border focus:ring-secondary focus:border-secondary"
 									>
 										<option>Hotel/Restaurant Consultation</option>
 										<option>Professional Chef Training</option>
@@ -634,18 +625,18 @@ const Contact: React.FC = () => {
 								<div>
 									<label
 										htmlFor="message"
-										className="block text-sm font-medium text-slate-gray mb-2"
+										className="block text-sm font-medium text-foreground mb-2"
 									>
 										Message
 									</label>
 									<textarea
 										id="message"
 										rows={4}
-										className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+										className="w-full px-4 py-3 rounded-lg border-border focus:ring-secondary focus:border-secondary"
 									></textarea>
 								</div>
 								<div>
-									<Button type="submit" className="w-full">
+									<Button size="lg" type="submit" className="w-full">
 										Send Message
 									</Button>
 								</div>

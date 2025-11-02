@@ -1,14 +1,13 @@
-import { FacebookIcon, FlameLogo, InstagramIcon, YoutubeIcon } from "./icons";
+import { FacebookIcon, InstagramIcon, YoutubeIcon } from "./icons";
 
 export default function Footer() {
 	return (
-		<footer className="bg-deep-forest-green text-white">
+		<footer className="bg-primary text-white">
 			<div className="container mx-auto px-6 py-20 max-w-7xl">
 				<div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
 					<div className="col-span-2 lg:col-span-1">
 						<a href="#home" className="flex items-center space-x-2 mb-4">
-							<FlameLogo className="h-12 w-12" />
-							<span className="font-display font-bold text-lg">Chef Fred</span>
+							<img width={180} src="/logo.svg" className="height-auto" />
 						</a>
 						<p className="text-sm opacity-80 mb-4">
 							Uganda's premier culinary consulting authority.
@@ -16,32 +15,32 @@ export default function Footer() {
 						<div className="flex space-x-4">
 							<a
 								href="#"
-								className="text-white hover:text-gold-accent transition-colors"
+								className="text-white hover:text-accent transition-colors"
 							>
 								<InstagramIcon className="h-6 w-6" />
 							</a>
 							<a
 								href="#"
-								className="text-white hover:text-gold-accent transition-colors"
+								className="text-white hover:text-accent transition-colors"
 							>
 								<YoutubeIcon className="h-6 w-6" />
 							</a>
 							<a
 								href="#"
-								className="text-white hover:text-gold-accent transition-colors"
+								className="text-white hover:text-accent transition-colors"
 							>
 								<FacebookIcon className="h-6 w-6" />
 							</a>
 						</div>
 					</div>
 
-					<div>
-						<h4 className="font-bold mb-4 font-body">Quick Links</h4>
+					<div className="flex flex-col gap-4">
+						<h4>Quick Links</h4>
 						<ul className="space-y-2 text-sm">
 							<li>
 								<a
 									href="#about"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									About Us
 								</a>
@@ -49,7 +48,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#services"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Services
 								</a>
@@ -57,7 +56,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#portfolio"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Portfolio
 								</a>
@@ -65,7 +64,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#training"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Training
 								</a>
@@ -73,13 +72,13 @@ export default function Footer() {
 						</ul>
 					</div>
 
-					<div>
-						<h4 className="font-bold mb-4 font-body">Our Services</h4>
+					<div className="flex flex-col gap-4">
+						<h4>Our Services</h4>
 						<ul className="space-y-2 text-sm">
 							<li>
 								<a
 									href="#"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Kitchen Consultation
 								</a>
@@ -87,7 +86,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Chef Training
 								</a>
@@ -95,7 +94,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Menu Engineering
 								</a>
@@ -103,7 +102,7 @@ export default function Footer() {
 							<li>
 								<a
 									href="#"
-									className="opacity-80 hover:opacity-100 hover:text-warm-terracotta transition-colors"
+									className="opacity-80 hover:opacity-100 hover:text-secondary transition-colors"
 								>
 									Event Catering
 								</a>
@@ -111,8 +110,8 @@ export default function Footer() {
 						</ul>
 					</div>
 
-					<div className="col-span-2 md:col-span-1">
-						<h4 className="font-bold mb-4 font-body">Stay Updated</h4>
+					<div className="flex flex-col gap-4">
+						<h4>Stay Updated</h4>
 						<p className="text-sm opacity-80 mb-4">
 							Get culinary insights and updates.
 						</p>
@@ -120,11 +119,11 @@ export default function Footer() {
 							<input
 								type="email"
 								placeholder="Your email"
-								className="w-full px-4 py-2 rounded-l-md border-0 text-slate-gray focus:ring-0"
+								className="w-full px-4 py-2 rounded-l-md border-0 text-foreground focus:ring-0"
 							/>
 							<button
 								type="submit"
-								className="bg-warm-terracotta px-4 rounded-r-md font-semibold hover:bg-opacity-90"
+								className="bg-secondary px-4 rounded-r-md font-semibold hover:bg-opacity-90"
 							>
 								Go
 							</button>
