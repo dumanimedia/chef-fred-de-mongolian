@@ -1,15 +1,677 @@
+import {
+	ArrowRightIcon,
+	BarChartIcon,
+	CalendarIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	ClockIcon,
+	FlameIcon,
+	QuoteIcon,
+	StarIcon,
+} from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import {
+	CONTACT_INFO,
+	DIFFERENTIATORS,
+	METRICS,
+	SERVICES,
+	SUCCESS_STORIES,
+	TESTIMONIALS,
+	TRAINING_PROGRAMS,
+	TRUST_INDICATORS,
+} from "@/data";
 import { createFileRoute } from "@tanstack/react-router";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/")({
 	component: App,
 });
 
+// Custom Hook for detecting when an element is in view
+const useInView = (options?: IntersectionObserverInit) => {
+	const ref = useRef<HTMLDivElement>(null);
+	const [isInView, setIsInView] = useState(false);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			if (entry.isIntersecting) {
+				setIsInView(true);
+				if (ref.current) {
+					observer.unobserve(ref.current);
+				}
+			}
+		}, options);
+
+		if (ref.current) {
+			observer.observe(ref.current);
+		}
+
+		return () => {
+			if (ref.current) {
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+				observer.unobserve(ref.current);
+			}
+		};
+	}, [options]);
+
+	return [ref, isInView] as const;
+};
+
+// Animated Counter Component
+interface AnimatedCounterProps {
+	target: number;
+	duration?: number;
+	className?: string;
+	isInView: boolean;
+}
+const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
+	target,
+	duration = 2000,
+	className,
+	isInView,
+}) => {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		if (!isInView) return;
+
+		let start = 0;
+		const end = target;
+		const increment = end / (duration / 16); // 60fps
+
+		const timer = setInterval(() => {
+			start += increment;
+			if (start >= end) {
+				setCount(end);
+				clearInterval(timer);
+			} else {
+				setCount(Math.ceil(start));
+			}
+		}, 16);
+
+		return () => clearInterval(timer);
+	}, [target, duration, isInView]);
+
+	return <span className={className}>{count.toLocaleString()}</span>;
+};
+
+const AnimatedSection: React.FC<{
+	children: React.ReactNode;
+	className?: string;
+	threshold?: number;
+}> = ({ children, className, threshold = 0.1 }) => {
+	const [ref, isInView] = useInView({ threshold });
+	return (
+		<div
+			ref={ref}
+			className={`${className} ${isInView ? "fade-in-up" : "opacity-0"}`}
+		>
+			{children}
+		</div>
+	);
+};
+
+const Hero = () => {
+	return (
+		<section
+			id="home"
+			className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+			style={{
+				backgroundImage:
+					"url('https://fastly.picsum.photos/id/483/1920/1080.jpg?blur=2&grayscale&hmac=Bnp9-43Kp6FzztadYdCEFf2Jo492SnC-jlHGmrcNneY')",
+			}}
+		>
+			<div className="absolute inset-0 bg-black bg-opacity-60"></div>
+			<div className="relative z-10 text-center text-white px-6">
+				<AnimatedSection>
+					<h1 className="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight">
+						Transform Your Kitchen Into a Profit Center
+					</h1>
+					<p className="font-body text-lg md:text-xl max-w-3xl mx-auto mt-6">
+						Uganda's premier culinary consultant specializing in hotel
+						operations, professional training, and authentic international
+						cuisine expertise.
+					</p>
+					<div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+						<Button variant="secondary" className="w-full sm:w-auto">
+							Book Free Consultation
+						</Button>
+						<Button className="text-white border-white hover:bg-white hover:text-deep-forest-green w-full sm:w-auto">
+							Explore Services
+						</Button>
+					</div>
+				</AnimatedSection>
+			</div>
+			<div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+				<div className="container mx-auto max-w-7xl">
+					<div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-white">
+						{TRUST_INDICATORS.map((item) => (
+							<div key={item.label} className="flex flex-col items-center">
+								<span className="font-bold text-xl lg:text-2xl text-gold-accent">
+									{item.value}
+								</span>
+								<span className="text-sm lg:text-base opacity-90">
+									{item.label}
+								</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+};
+
+// 3. The Mongolian Legacy Story
+const LegacyStory: React.FC = () => (
+	<section id="about" className="py-20 lg:py-28 bg-white">
+		<div className="container mx-auto px-6 max-w-7xl">
+			<div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+				<AnimatedSection>
+					<div className="flex items-center space-x-3 mb-4">
+						<FlameIcon className="h-8 w-8 text-gold-accent" />
+						<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+							The Mongolian Legacy
+						</h2>
+					</div>
+					<p className="font-body text-lg leading-relaxed text-slate-gray mb-6">
+						Chef Fred earned his distinctive 'Mongolian' title through a
+						remarkable culinary achievement—creating an authentic Mongolian
+						cuisine that captivated Uganda's dining scene and left diners
+						talking for months. Today, that same passion for authenticity and
+						innovation drives every aspect of Chef Fred De Mongolian Ltd, from
+						intimate cooking sessions to large-scale hotel transformations.
+					</p>
+					<a
+						href="#"
+						className="font-semibold text-warm-terracotta hover:underline inline-flex items-center"
+					>
+						Read Full Story <ArrowRightIcon className="ml-2 h-5 w-5" />
+					</a>
+				</AnimatedSection>
+				<AnimatedSection>
+					<img
+						src="https://picsum.photos/seed/chef/600/700"
+						alt="Chef Fred De Mongolian"
+						className="rounded-xl shadow-lg w-full h-auto object-cover"
+					/>
+				</AnimatedSection>
+			</div>
+		</div>
+	</section>
+);
+
+// 4. Services Showcase
+const ServicesShowcase: React.FC = () => (
+	<section id="services" className="py-20 lg:py-28 bg-neutral-cream">
+		<div className="container mx-auto px-6 max-w-[1400px]">
+			<AnimatedSection className="text-center mb-16">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					Comprehensive Culinary Solutions
+				</h2>
+				<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+					From consultation to implementation, we transform every aspect of your
+					culinary operations.
+				</p>
+			</AnimatedSection>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+				{SERVICES.slice(0, 8).map((service, index) => (
+					<AnimatedSection
+						key={index}
+						className="flex"
+						style={{ animationDelay: `${index * 100}ms` }}
+					>
+						<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-warm-terracotta hover:shadow-xl transition-all duration-300 flex flex-col">
+							<div className="text-gold-accent mb-4">
+								{service.icon({ className: "h-12 w-12" })}
+							</div>
+							<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-3">
+								{service.title}
+							</h3>
+							<p className="text-slate-gray flex-grow">{service.description}</p>
+							<a
+								href="#"
+								className="font-semibold text-warm-terracotta mt-6 inline-flex items-center group"
+							>
+								Learn More{" "}
+								<ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+							</a>
+						</div>
+					</AnimatedSection>
+				))}
+			</div>
+		</div>
+	</section>
+);
+
+// 5. Results & Impact Metrics
+const ResultsMetrics: React.FC = () => {
+	const [ref, isInView] = useInView({ threshold: 0.5 });
+
+	return (
+		<section
+			ref={ref}
+			className="py-20 lg:py-24 bg-deep-forest-green text-white"
+		>
+			<div className="container mx-auto px-6 max-w-7xl text-center">
+				<AnimatedSection>
+					<h2 className="font-display font-semibold text-3xl md:text-4xl">
+						Proven Results That Transform Businesses
+					</h2>
+					<p className="font-body text-lg opacity-90 max-w-3xl mx-auto mt-4">
+						Our data-driven approach delivers measurable improvements to your
+						bottom line.
+					</p>
+				</AnimatedSection>
+				<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+					{METRICS.map((metric, index) => (
+						<AnimatedSection key={index} className="flex flex-col items-center">
+							<div className="mb-2">
+								{metric.icon({ className: "h-10 w-10 text-white opacity-80" })}
+							</div>
+							<AnimatedCounter
+								target={metric.value}
+								isInView={isInView}
+								className="font-display font-bold text-4xl md:text-5xl text-gold-accent"
+							/>
+							<span className="font-body font-medium text-lg mt-2 opacity-90">
+								{metric.label}
+							</span>
+						</AnimatedSection>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+};
+
+// 6. Featured Success Stories
+const SuccessStories: React.FC = () => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const nextStory = useCallback(() => {
+		setCurrentIndex((prevIndex) => (prevIndex + 1) % SUCCESS_STORIES.length);
+	}, []);
+
+	useEffect(() => {
+		const timer = setInterval(nextStory, 5000);
+		return () => clearInterval(timer);
+	}, [nextStory]);
+
+	return (
+		<section id="portfolio" className="py-20 lg:py-28 bg-white">
+			<div className="container mx-auto px-6 max-w-7xl">
+				<AnimatedSection className="text-center mb-16">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+						Client Success Stories
+					</h2>
+					<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+						Real transformations from Uganda's leading hospitality
+						establishments.
+					</p>
+				</AnimatedSection>
+				<div className="relative h-[600px] md:h-[500px]">
+					{SUCCESS_STORIES.map((story, index) => (
+						<div
+							key={index}
+							className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
+						>
+							<div className="grid lg:grid-cols-2 gap-12 items-center h-full">
+								<img
+									src={story.image}
+									alt={story.client}
+									className="w-full h-64 lg:h-full object-cover rounded-2xl shadow-lg"
+								/>
+								<div className="p-4">
+									<span className="font-semibold text-warm-terracotta">
+										{story.client}
+									</span>
+									<h3 className="font-display font-semibold text-2xl text-deep-forest-green mt-2 mb-4">
+										{story.challenge}
+									</h3>
+									<p className="text-slate-gray mb-4">
+										<strong className="text-deep-forest-green">
+											Solution:
+										</strong>{" "}
+										{story.solution}
+									</p>
+									<div className="bg-neutral-cream p-4 rounded-lg mb-4">
+										<p className="text-slate-gray">
+											<strong className="text-deep-forest-green">
+												Results:
+											</strong>{" "}
+											{story.results}
+										</p>
+									</div>
+									<p className="text-slate-gray italic relative pl-8">
+										<QuoteIcon className="absolute left-0 top-0 h-6 w-6 text-gold-accent opacity-50" />
+										{story.testimonial}
+									</p>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+				<div className="flex justify-center space-x-3 mt-8">
+					{SUCCESS_STORIES.map((_, index) => (
+						<button
+							key={index}
+							onClick={() => setCurrentIndex(index)}
+							className={`h-3 w-3 rounded-full transition-colors ${index === currentIndex ? "bg-warm-terracotta" : "bg-deep-forest-green opacity-30"}`}
+						></button>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+};
+
+// 7. Expertise Highlights
+const ExpertiseHighlights: React.FC = () => (
+	<section className="py-20 lg:py-28 bg-neutral-cream">
+		<div className="container mx-auto px-6 max-w-7xl">
+			<AnimatedSection className="text-center mb-16">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					Why Choose Chef Fred De Mongolian Ltd?
+				</h2>
+			</AnimatedSection>
+			<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+				{DIFFERENTIATORS.map((item, index) => (
+					<AnimatedSection
+						key={index}
+						className="text-center p-6 group"
+						style={{ animationDelay: `${index * 100}ms` }}
+					>
+						<div className="inline-block p-4 bg-warm-terracotta text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
+							{item.icon({ className: "h-10 w-10" })}
+						</div>
+						<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-3">
+							{item.title}
+						</h3>
+						<p className="text-slate-gray">{item.text}</p>
+					</AnimatedSection>
+				))}
+			</div>
+		</div>
+	</section>
+);
+
+// 8. Training Programs Preview
+const TrainingPrograms: React.FC = () => (
+	<section id="training" className="py-20 lg:py-28 bg-white">
+		<div className="container mx-auto px-6 max-w-7xl">
+			<AnimatedSection className="text-center mb-16">
+				<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+					Upcoming Training Programs
+				</h2>
+				<p className="font-body text-lg text-slate-gray max-w-3xl mx-auto mt-4">
+					Elevate your culinary skills with hands-on workshops and certification
+					programs.
+				</p>
+			</AnimatedSection>
+			<div className="grid lg:grid-cols-3 gap-8">
+				{TRAINING_PROGRAMS.map((program, index) => (
+					<AnimatedSection
+						key={index}
+						className="flex"
+						style={{ animationDelay: `${index * 100}ms` }}
+					>
+						<div className="border-2 border-deep-forest-green rounded-2xl p-8 flex flex-col w-full hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+							<span className="absolute top-4 -right-10 bg-gold-accent text-white text-sm font-semibold px-12 py-1 transform rotate-45">
+								HOT
+							</span>
+							<h3 className="font-display font-semibold text-2xl text-deep-forest-green mb-4">
+								{program.title}
+							</h3>
+							<div className="space-y-3 text-slate-gray mb-6 grow">
+								<p className="flex items-center">
+									<CalendarIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									{program.date}
+								</p>
+
+								<p className="flex items-center">
+									<ClockIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									{program.duration}
+								</p>
+								<p className="flex items-center">
+									<BarChartIcon className="h-5 w-5 mr-3 text-warm-terracotta" />{" "}
+									{program.level}
+								</p>
+							</div>
+							<p className="font-semibold text-warm-terracotta mb-4">
+								{program.spots}
+							</p>
+							<p className="font-display font-bold text-3xl text-deep-forest-green mb-6">
+								{program.price}
+							</p>
+							<Button className="w-full mt-auto">Register Now</Button>
+						</div>
+					</AnimatedSection>
+				))}
+			</div>
+			<div className="text-center mt-12">
+				<a
+					href="#"
+					className="font-semibold text-warm-terracotta hover:underline inline-flex items-center text-lg"
+				>
+					View Full Schedule <ArrowRightIcon className="ml-2 h-5 w-5" />
+				</a>
+			</div>
+		</div>
+	</section>
+);
+
+// 10. Client Testimonials Carousel
+const Testimonials: React.FC = () => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const goToSlide = (index: number) => {
+		setCurrentIndex(index);
+	};
+
+	const nextSlide = useCallback(() => {
+		setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+	}, []);
+
+	const prevSlide = () => {
+		setCurrentIndex(
+			(prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length,
+		);
+	};
+
+	useEffect(() => {
+		const slider = setInterval(nextSlide, 6000);
+		return () => clearInterval(slider);
+	}, [nextSlide]);
+
+	return (
+		<section className="py-20 lg:py-28 bg-neutral-cream">
+			<div className="container mx-auto px-6 max-w-4xl text-center">
+				<AnimatedSection className="mb-12">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+						What Our Clients Say
+					</h2>
+				</AnimatedSection>
+				<div className="relative">
+					<div className="overflow-hidden relative h-[420px] md:h-80">
+						{TESTIMONIALS.map((testimonial, index) => (
+							<div
+								key={index}
+								className={`absolute w-full h-full transition-opacity duration-500 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
+							>
+								<div className="bg-white p-10 md:p-14 rounded-3xl shadow-lg h-full flex flex-col justify-center relative">
+									<QuoteIcon className="absolute top-8 left-8 h-12 w-12 text-gold-accent opacity-20" />
+									<p className="font-display italic text-xl md:text-2xl text-deep-forest-green mb-6">{`"${testimonial.quote}"`}</p>
+									<div className="flex items-center justify-center">
+										<img
+											src={testimonial.photo}
+											alt={testimonial.name}
+											className="h-16 w-16 rounded-full object-cover mr-4"
+										/>
+										<div>
+											<p className="font-body font-bold text-deep-forest-green text-left">
+												{testimonial.name}
+											</p>
+											<p className="font-body text-slate-gray text-left">
+												{testimonial.title}
+											</p>
+											<div className="flex mt-1">
+												{[...Array(5)].map((_, i) => (
+													<StarIcon
+														key={i}
+														className="h-5 w-5 text-gold-accent"
+													/>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+					<button
+						onClick={prevSlide}
+						className="absolute top-1/2 -left-5 md:left-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-warm-terracotta hover:text-white transition-colors text-deep-forest-green"
+					>
+						<ChevronLeftIcon className="h-6 w-6" />
+					</button>
+					<button
+						onClick={nextSlide}
+						className="absolute top-1/2 right-5 md:right-[-50px] -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-warm-terracotta hover:text-white transition-colors text-deep-forest-green"
+					>
+						<ChevronRightIcon className="h-6 w-6" />
+					</button>
+				</div>
+			</div>
+		</section>
+	);
+};
+
+// 12. Contact Information Section
+const Contact: React.FC = () => {
+	return (
+		<section id="contact" className="py-20 lg:py-28 bg-white">
+			<div className="container mx-auto px-6 max-w-7xl">
+				<AnimatedSection className="text-center mb-16">
+					<h2 className="font-display font-semibold text-3xl md:text-4xl text-deep-forest-green">
+						Get In Touch
+					</h2>
+				</AnimatedSection>
+				<div className="grid lg:grid-cols-5 gap-10">
+					<div className="lg:col-span-2">
+						<AnimatedSection>
+							<div className="space-y-8">
+								{CONTACT_INFO.map((info) => (
+									<div key={info.label} className="flex items-start">
+										<div className="flex-shrink-0 bg-warm-terracotta/10 p-3 rounded-lg mr-4">
+											{info.icon({ className: "h-6 w-6 text-warm-terracotta" })}
+										</div>
+										<div>
+											<h3 className="font-body font-bold text-deep-forest-green text-lg">
+												{info.label}
+											</h3>
+											<div
+												className="text-slate-gray"
+												dangerouslySetInnerHTML={{ __html: info.info }}
+											></div>
+											<p className="text-sm text-slate-gray/70 mt-1">
+												{info.note}
+											</p>
+										</div>
+									</div>
+								))}
+							</div>
+						</AnimatedSection>
+					</div>
+					<div className="lg:col-span-3 bg-neutral-cream p-8 rounded-2xl">
+						<AnimatedSection>
+							<form className="space-y-6">
+								<div className="grid sm:grid-cols-2 gap-6">
+									<div>
+										<label
+											htmlFor="name"
+											className="block text-sm font-medium text-slate-gray mb-2"
+										>
+											Name
+										</label>
+										<input
+											type="text"
+											id="name"
+											className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+										/>
+									</div>
+									<div>
+										<label
+											htmlFor="email"
+											className="block text-sm font-medium text-slate-gray mb-2"
+										>
+											Email
+										</label>
+										<input
+											type="email"
+											id="email"
+											className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+										/>
+									</div>
+								</div>
+								<div>
+									<label
+										htmlFor="service"
+										className="block text-sm font-medium text-slate-gray mb-2"
+									>
+										Service of Interest
+									</label>
+									<select
+										id="service"
+										className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+									>
+										<option>Hotel/Restaurant Consultation</option>
+										<option>Professional Chef Training</option>
+										<option>Menu Development</option>
+										<option>Premium Event Catering</option>
+									</select>
+								</div>
+								<div>
+									<label
+										htmlFor="message"
+										className="block text-sm font-medium text-slate-gray mb-2"
+									>
+										Message
+									</label>
+									<textarea
+										id="message"
+										rows={4}
+										className="w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-warm-terracotta focus:border-warm-terracotta"
+									></textarea>
+								</div>
+								<div>
+									<Button type="submit" className="w-full">
+										Send Message
+									</Button>
+								</div>
+							</form>
+						</AnimatedSection>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+};
+
 function App() {
 	return (
 		<main>
-			<h1 className="text-3xl font-bold underline">This is the main website</h1>
-			<Button>Book A Table</Button>
+			<Hero />
+			<LegacyStory />
+			<ServicesShowcase />
+			<ResultsMetrics />
+			<SuccessStories />
+			<ExpertiseHighlights />
+			<TrainingPrograms />
+			{/* Skipping Social Proof section as it requires complex embeds */}
+			<Testimonials />
+			{/* Skipping CTA section as it repeats elements */}
+			<Contact />{" "}
 		</main>
 	);
 }

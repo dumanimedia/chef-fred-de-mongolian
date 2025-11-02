@@ -38,41 +38,90 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-deep-forest-green: #0e5c3a;
+  --color-warm-terracotta: #d1623b;
+  --color-neutral-cream: #f6f1e9;
+  --color-gold-accent: #d4af37;
+  --color-slate-gray: #374151;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+
+  /* Brand Colors - Chef Fred De Mongolian Ltd */
+  --deep-forest-green: oklch(0.35 0.08 155); /* #0E5C3A */
+  --warm-terracotta: oklch(0.58 0.14 35); /* #D1623B */
+  --neutral-cream: oklch(0.96 0.01 85); /* #F6F1E9 */
+  --gold-accent: oklch(0.75 0.12 85); /* #D4AF37 */
+  --slate-gray: oklch(0.35 0.02 255); /* #374151 */
+
+  /* Shadcn/UI System Colors */
+  --background: oklch(0.96 0.01 85); /* Neutral Cream */
+  --foreground: oklch(0.35 0.02 255); /* Slate Gray */
+  --card: oklch(1 0 0); /* White */
+  --card-foreground: oklch(0.35 0.02 255); /* Slate Gray */
+  --popover: oklch(1 0 0); /* White */
+  --popover-foreground: oklch(0.35 0.02 255); /* Slate Gray */
+  --primary: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --primary-foreground: oklch(1 0 0); /* White */
+  --secondary: oklch(0.58 0.14 35); /* Warm Terracotta */
+  --secondary-foreground: oklch(1 0 0); /* White */
+  --muted: oklch(0.96 0.01 85); /* Neutral Cream */
+  --muted-foreground: oklch(0.35 0.02 255); /* Slate Gray */
+  --accent: oklch(0.75 0.12 85); /* Gold Accent */
+  --accent-foreground: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --destructive: oklch(0.577 0.245 27.325); /* Keep default red for errors */
+  --border: oklch(0.35 0.08 155); /* Deep Forest Green with opacity */
+  --input: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --ring: oklch(0.58 0.14 35); /* Warm Terracotta for focus rings */
+
+  /* Chart colors using brand palette */
+  --chart-1: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --chart-2: oklch(0.58 0.14 35); /* Warm Terracotta */
+  --chart-3: oklch(0.75 0.12 85); /* Gold Accent */
+  --chart-4: oklch(0.35 0.02 255); /* Slate Gray */
+  --chart-5: oklch(0.96 0.01 85); /* Neutral Cream */
+  /* Sidebar colors */
+  --sidebar: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --sidebar-foreground: oklch(1 0 0); /* White */
+  --sidebar-primary: oklch(0.58 0.14 35); /* Warm Terracotta */
+  --sidebar-primary-foreground: oklch(1 0 0); /* White */
+  --sidebar-accent: oklch(0.75 0.12 85); /* Gold Accent */
+  --sidebar-accent-foreground: oklch(0.35 0.08 155); /* Deep Forest Green */
+  --sidebar-border: oklch(0.35 0.08 155); /* Deep Forest Green with opacity */
+  --sidebar-ring: oklch(0.58 0.14 35); /* Warm Terracotta */
+}
+
+.dark {
+  /* Dark mode (optional) - inverted for better contrast */
+  --background: oklch(0.2 0.02 155); /* Dark green */
+  --foreground: oklch(0.96 0.01 85); /* Neutral Cream */
+
+  --card: oklch(0.25 0.03 155); /* Slightly lighter dark green */
+  --card-foreground: oklch(0.96 0.01 85); /* Neutral Cream */
+  --popover: oklch(0.25 0.03 155);
+  --popover-foreground: oklch(0.96 0.01 85);
+  --primary: oklch(0.45 0.1 155); /* Lighter forest green */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.58 0.14 35); /* Warm Terracotta stays same */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.3 0.03 155);
+  --muted-foreground: oklch(0.7 0.01 85);
+  --accent: oklch(0.75 0.12 85); /* Gold Accent */
+  --accent-foreground: oklch(0.2 0.02 155);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.35 0.08 155);
+  --input: oklch(0.35 0.08 155);
+  --ring: oklch(0.58 0.14 35);
+  --sidebar: oklch(0.25 0.03 155);
+  --sidebar-foreground: oklch(0.96 0.01 85);
+  --sidebar-primary: oklch(0.58 0.14 35);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.75 0.12 85);
+  --sidebar-accent-foreground: oklch(0.25 0.03 155);
+  --sidebar-border: oklch(0.35 0.08 155);
+  --sidebar-ring: oklch(0.58 0.14 35);
 }
 
 @layer base {
