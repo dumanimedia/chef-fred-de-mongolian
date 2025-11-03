@@ -216,26 +216,29 @@ const ServicesShowcase: React.FC = () => (
 				</p>
 			</AnimatedSection>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-				{SERVICES.slice(0, 8).map((service) => (
-					<AnimatedSection key={service.title} className="flex">
-						<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col">
-							<div className="text-accent mb-4">
-								{service.icon({ className: "h-12 w-12" })}
+				{SERVICES.slice(0, 8).map((service) => {
+					const ServiceIcon = service.icon;
+					return (
+						<AnimatedSection key={service.title} className="flex">
+							<div className="bg-white p-8 rounded-2xl shadow-sm border border-transparent hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col">
+								<div className="text-accent mb-4">
+									<ServiceIcon className="h-12 w-12" />
+								</div>
+								<h3 className="font-display font-semibold text-2xl text-primary mb-3">
+									{service.title}
+								</h3>
+								<p className="text-foreground grow">{service.description}</p>
+								<a
+									href="/"
+									className="font-semibold text-secondary mt-6 inline-flex items-center group"
+								>
+									Learn More{" "}
+									<ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+								</a>
 							</div>
-							<h3 className="font-display font-semibold text-2xl text-primary mb-3">
-								{service.title}
-							</h3>
-							<p className="text-foreground flex-grow">{service.description}</p>
-							<a
-								href="/"
-								className="font-semibold text-secondary mt-6 inline-flex items-center group"
-							>
-								Learn More{" "}
-								<ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-							</a>
-						</div>
-					</AnimatedSection>
-				))}
+						</AnimatedSection>
+					);
+				})}
 			</div>
 		</div>
 	</section>
@@ -258,24 +261,27 @@ const ResultsMetrics: React.FC = () => {
 					</p>
 				</AnimatedSection>
 				<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-					{METRICS.map((metric) => (
-						<AnimatedSection
-							key={metric.label}
-							className="flex flex-col items-center"
-						>
-							<div className="mb-2">
-								{metric.icon({ className: "h-10 w-10 text-white opacity-80" })}
-							</div>
-							<AnimatedCounter
-								target={metric.value}
-								isInView={isInView}
-								className="font-display font-bold text-4xl md:text-5xl text-accent"
-							/>
-							<span className="font-body font-medium text-lg mt-2 opacity-90">
-								{metric.label}
-							</span>
-						</AnimatedSection>
-					))}
+					{METRICS.map((metric) => {
+						const ItemIcon = metric.icon;
+						return (
+							<AnimatedSection
+								key={metric.label}
+								className="flex flex-col items-center"
+							>
+								<div className="mb-2">
+									<ItemIcon className="h-10 w-10 text-white opacity-80" />
+								</div>
+								<AnimatedCounter
+									target={metric.value}
+									isInView={isInView}
+									className="font-display font-bold text-4xl md:text-5xl text-accent"
+								/>
+								<span className="font-body font-medium text-lg mt-2 opacity-90">
+									{metric.label}
+								</span>
+							</AnimatedSection>
+						);
+					})}
 				</div>
 			</div>
 		</section>
@@ -370,17 +376,20 @@ const ExpertiseHighlights: React.FC = () => (
 				</h2>
 			</AnimatedSection>
 			<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-				{DIFFERENTIATORS.map((item) => (
-					<AnimatedSection key={item.title} className="text-center p-6 group">
-						<div className="inline-block p-4 bg-secondary text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
-							{item.icon({ className: "h-10 w-10" })}
-						</div>
-						<h3 className="font-display font-semibold text-2xl text-primary mb-3">
-							{item.title}
-						</h3>
-						<p className="text-foreground">{item.text}</p>
-					</AnimatedSection>
-				))}
+				{DIFFERENTIATORS.map((item) => {
+					const DiffIcon = item.icon;
+					return (
+						<AnimatedSection key={item.title} className="text-center p-6 group">
+							<div className="inline-block p-4 bg-secondary text-white rounded-full mb-5 transition-transform duration-300 group-hover:scale-110">
+								<DiffIcon className="h-10 w-10" />
+							</div>
+							<h3 className="font-display font-semibold text-2xl text-primary mb-3">
+								{item.title}
+							</h3>
+							<p className="text-foreground">{item.text}</p>
+						</AnimatedSection>
+					);
+				})}
 			</div>
 		</div>
 	</section>
@@ -546,25 +555,28 @@ const Contact: React.FC = () => {
 					<div className="lg:col-span-2">
 						<AnimatedSection>
 							<div className="space-y-8">
-								{CONTACT_INFO.map((info) => (
-									<div key={info.label} className="flex items-start">
-										<div className="shrink-0 bg-secondary/10 p-3 rounded-lg mr-4">
-											{info.icon({ className: "h-6 w-6 text-secondary" })}
+								{CONTACT_INFO.map((info) => {
+									const ContactIcon = info.icon;
+									return (
+										<div key={info.label} className="flex items-start">
+											<div className="shrink-0 bg-secondary/10 p-3 rounded-lg mr-4">
+												<ContactIcon className="h-6 w-6 text-secondary" />
+											</div>
+											<div>
+												<h3 className="font-body font-bold text-primary text-lg">
+													{info.label}
+												</h3>
+												<div
+													className="text-foreground"
+													dangerouslySetInnerHTML={{ __html: info.info }}
+												/>
+												<p className="text-sm text-foreground/70 mt-1">
+													{info.note}
+												</p>
+											</div>
 										</div>
-										<div>
-											<h3 className="font-body font-bold text-primary text-lg">
-												{info.label}
-											</h3>
-											<div
-												className="text-foreground"
-												dangerouslySetInnerHTML={{ __html: info.info }}
-											/>
-											<p className="text-sm text-foreground/70 mt-1">
-												{info.note}
-											</p>
-										</div>
-									</div>
-								))}
+									);
+								})}
 							</div>
 						</AnimatedSection>
 					</div>

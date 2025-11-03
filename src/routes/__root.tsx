@@ -4,6 +4,8 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
+import NotFoundPage from "@/components/not-found";
+
 export const Route = createRootRoute({
 	component: () => (
 		<>
@@ -15,4 +17,8 @@ export const Route = createRootRoute({
 			)}
 		</>
 	),
+
+	notFoundComponent: () => {
+		return <NotFoundPage />;
+	},
 });
